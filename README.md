@@ -8,14 +8,14 @@ Build
 $PGIS = "pg12-3.1.4"  # available versions on  http://download.osgeo.org/postgis/windows/
 $PSQL = "12.0-1"  # available versions on  https://www.enterprisedb.com/download-postgresql-binaries
 $WIN = "1903"
-$LABEL = "12-3"
-docker build --build-arg WIN_VER=$WIN --build-arg EDB_VER=$PSQL --build-arg PGIS_VER=$PGIS --tag opengisch/postgis-windows:$LABEL .
+$IMAGE = "opengisch/postgis-windows:12-3"
+docker build --build-arg WIN_VER=$WIN --build-arg EDB_VER=$PSQL --build-arg PGIS_VER=$PGIS --tag $IMAGE .
 ```
 
 Push to dockerhub
 ```shell
 docker login
-docker push opengisch/postgis-windows:$LABEL
+docker push $IMAGE
 ```
 
 Run (in foreground, not persisted)
