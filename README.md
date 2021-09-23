@@ -4,23 +4,27 @@ Forked from https://github.com/stellirin/docker-postgres-windows to add Postgis
 
 Build
 
-```shell
-$PGIS = "pg12-3.1.4"  # available versions on  http://download.osgeo.org/postgis/windows/
+```powershell
+$PGIS = "12-3.1.4"  # available versions on  http://download.osgeo.org/postgis/windows/
 $PSQL = "12.0-1"  # available versions on  https://www.enterprisedb.com/download-postgresql-binaries
-$WIN = "1903"
-$IMAGE = "opengisch/postgis-windows:12-3"
+# $WIN = "10.0.17763.2183"
+# this doesn't run with `initdb: error: The program "postgres" was found by "C:/pgsql/bin/initdb" but was not the same version as initdb.
+# $WIN = "1903"
+# this doesn't work on gitlab ci with `C:\Program Files\Docker\docker.exe: a Windows version 10.0.18362-based image is incompatible with a 10.0.17763 host.`
+$WIN = "1803"
+$IMAGE = "opengisch/postgis-windows:pg${PSQL}-pgis${PGIS}-win${WIN}"
 docker build --build-arg WIN_VER=$WIN --build-arg EDB_VER=$PSQL --build-arg PGIS_VER=$PGIS --tag $IMAGE .
 ```
 
 Push to dockerhub
-```shell
+```powershell
 docker login
 docker push $IMAGE
 ```
 
 Run (in foreground, not persisted)
-```
-docker run -it -p 5432:5432 opengisch/postgis-windows:12-3
+```powershell
+docker run -it -p 5432:5432 $IMAGE
 ```
 
 ------

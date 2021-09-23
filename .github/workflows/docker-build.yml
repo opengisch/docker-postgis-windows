@@ -1,0 +1,33 @@
+on: push
+jobs:
+  docker-build:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        pgis:
+          - '12-3.1.4'
+        psql:
+          - '12.0-1'
+        win:
+          - '10.0.17763.2183'
+          - '1903'
+          - '1803'
+
+    env:
+      IMAGE: opengisch/postgis-windows:pg${{matrix.psql}}-pgis${{matrix.pgis}}-win${{matrix.win}}
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build
+        run: docker build --build-arg WIN_VER=${{matrix.win}} --build-arg EDB_VER=${{matrix.psql}} --build-arg PGIS_VER=${{matrix.pgis}} --tag $IMAGE .
+
+      - name: Login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Push
+        run: docker push $IMAGE

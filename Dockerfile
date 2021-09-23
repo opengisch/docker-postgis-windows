@@ -64,7 +64,7 @@ RUN if (Test-Path 'C:\\windows\\system32\\msvcp120.dll') { \
 
 ### Download and install postgis
 ARG PGIS_VER
-RUN $URL3 = $('http://download.osgeo.org/postgis/windows/{0}/postgis-bundle-{1}x64.zip' -f $env:PGIS_VER.Substring(0, $env:PGIS_VER.IndexOf('-')), $env:PGIS_VER) ; \
+RUN $URL3 = $('http://download.osgeo.org/postgis/windows/pg{0}/postgis-bundle-pg{1}x64.zip' -f $env:PGIS_VER.Substring(0, $env:PGIS_VER.IndexOf('-')), $env:PGIS_VER) ; \
     Invoke-WebRequest -Uri $URL3 -OutFile 'C:\postgis.zip'
 RUN Expand-Archive 'C:\postgis.zip'
 RUN Get-ChildItem -Path "postgis\*\*" | Copy-Item -Destination "C:\pgsql" -Recurse -Container -Force
