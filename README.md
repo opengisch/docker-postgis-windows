@@ -1,3 +1,33 @@
+# Postgis in docker-containers
+
+Forked from https://github.com/stellirin/docker-postgres-windows to add Postgis
+
+Build
+
+```shell
+$PGIS = "pg12-3.1.4"  # available versions on  http://download.osgeo.org/postgis/windows/
+$PSQL = "12.0-1"  # available versions on  https://www.enterprisedb.com/download-postgresql-binaries
+$WIN = "1903"
+$LABEL = "12-3"
+docker build --build-arg WIN_VER=$WIN --build-arg EDB_VER=$PSQL --build-arg PGIS_VER=$PGIS --tag opengisch/postgis-windows:$LABEL .
+```
+
+Push to dockerhub
+```shell
+docker login
+docker push opengisch/postgis-windows:$LABEL
+```
+
+Run (in foreground, not persisted)
+```
+docker run -it -p 5432:5432 opengisch/postgis-windows:12-3
+```
+
+------
+
+<details title="abc">
+    <summary>Upstream repo readme</summary>
+
 # This repository is archived!
 
 I no longer have a need for PostgreSQL as a Windows container so I will not continue to maintain this repository.
@@ -79,3 +109,5 @@ The `Dockerfile` and the `docker-entrypoint.cmd` were strongly inspired by the e
 ### Licence
 
 The files here are under the MIT licence, the same as the regular [docker-library/postgres](https://github.com/docker-library/postgres) docker files. Just like `docker-library/postgres`, the licence here covers *only* the files in this repository. It doesn't cover the PostgreSQL distribution, which has its own licence.
+
+</details>
