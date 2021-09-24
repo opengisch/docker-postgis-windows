@@ -13,7 +13,7 @@ build:
   stage: build
   script:
       - docker build --build-arg WIN_VER=${win} --build-arg EDB_VER=${psql} --build-arg PGIS_VER=${pgis} --tag opengisch/postgis-windows:pg${{matrix.psql}}-pgis${{matrix.pgis}}-win${{matrix.win}} .
-      - echo ${DOCKER_HUB_ACCESS_TOKEN} | docker login --username ${secrets.DOCKER_HUB_USERNAME} --password-stdin
+      - echo ${DOCKER_HUB_ACCESS_TOKEN} | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
       - docker push --all-tags opengisch/postgis-windows
   parallel:
     matrix:
