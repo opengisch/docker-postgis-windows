@@ -5,9 +5,9 @@ Forked from https://github.com/stellirin/docker-postgres-windows to add Postgis
 Build
 
 ```powershell
-$PGIS = "10-2.5"  # available versions on  http://download.osgeo.org/postgis/windows/
-$PSQL = "10.18.1"  # available versions on  https://www.enterprisedb.com/download-postgresql-binaries
-# $WIN = "10.0.17763.2183"
+$PGIS = "10-2.5.3"  # available versions on  http://download.osgeo.org/postgis/windows/
+$PSQL = "10.18-2"  # available versions on  https://www.enterprisedb.com/download-postgresql-binaries
+# $WIN = "10.0.17763.2183"  # available version on https://hub.docker.com/_/microsoft-windows-servercore AND https://hub.docker.com/_/microsoft-windows-nanoserver
 # this doesn't run with `initdb: error: The program "postgres" was found by "C:/pgsql/bin/initdb" but was not the same version as initdb.
 # $WIN = "1903"
 # this doesn't work on gitlab ci with `C:\Program Files\Docker\docker.exe: a Windows version 10.0.18362-based image is incompatible with a 10.0.17763 host.`
