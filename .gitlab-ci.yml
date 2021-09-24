@@ -17,11 +17,11 @@ build:
       - docker push --all-tags opengisch/postgis-windows
   parallel:
     matrix:
-      pgis:
-        - '10-2.5.3'
-      psql:
-        - '10.18-2'
-      win:
-        - '10.0.17763.2183'
-        - '1903'
-        - '1803'
+      - pgis:
+          - '10-2.5.3'
+        psql:
+          - '10.18-2'
+        win:
+          - '10.0.17763.2183'
+          - '1903'
+          - '1803'
