@@ -5,8 +5,8 @@ Forked from https://github.com/stellirin/docker-postgres-windows to add Postgis
 Build
 
 ```powershell
-$PGIS = "10-2.5.3"  # available versions on  http://download.osgeo.org/postgis/windows/
-$PSQL = "10.18-2"  # available versions on  https://www.enterprisedb.com/download-postgresql-binaries
+$PGIS = "12-3.1.4"  # available versions on  http://download.osgeo.org/postgis/windows/
+$PSQL = "12.8-2"  # available versions on  https://www.enterprisedb.com/download-postgresql-binaries
 # $WIN = "10.0.17763.2183"  # available version on https://hub.docker.com/_/microsoft-windows-servercore AND https://hub.docker.com/_/microsoft-windows-nanoserver
 # this doesn't run with `initdb: error: The program "postgres" was found by "C:/pgsql/bin/initdb" but was not the same version as initdb.
 # $WIN = "1903"
@@ -24,8 +24,9 @@ docker push $IMAGE
 
 Test
 ```powershell
+docker kill pgwin
 docker run -itd --rm --name pgwin $IMAGE
-docker exec pgwin psql -U postgres -c "CREATE EXTENSION postgis; SELECT ST_DIST(ST_GEOMFROMTEXT('POINT(0 0)'),ST_GEOMFROMTEXT('POINT(1 0)'));"
+docker exec pgwin psql -U postgres -c "CREATE EXTENSION postgis; SELECT ST_DISTANCE(ST_GEOMFROMTEXT('POINT(0 0)'),ST_GEOMFROMTEXT('POINT(1 0)'));"
 ```
 
 ------

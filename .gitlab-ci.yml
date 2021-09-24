@@ -16,17 +16,15 @@ build:
       - docker build --build-arg WIN_VER=${win} --build-arg EDB_VER=${psql} --build-arg PGIS_VER=${pgis} --tag opengisch/postgis-windows:pg${psql}-pgis${pgis}-win${win} .
       # Test
       - docker run -itd --name pgwin $IMAGE
-      - docker exec pgwin psql -U postgres -c "CREATE EXTENSION postgis; SELECT ST_DIST(ST_GEOMFROMTEXT('POINT(0 0)'), ST_GEOMFROMTEXT('POINT(1 0)'));"
+      - docker exec pgwin psql -U postgres -c "CREATE EXTENSION postgis; SELECT ST_DISTANCE(ST_GEOMFROMTEXT('POINT(0 0)'), ST_GEOMFROMTEXT('POINT(1 0)'));"
       # Push
       - echo ${DOCKER_HUB_ACCESS_TOKEN} | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
       - docker push --all-tags opengisch/postgis-windows
   parallel:
     matrix:
       - pgis:
-          - '10-2.5.3'
+          - '12-3.1.4'
         psql:
-          - '10.18-2'
+          - '12.8-2'
         win:
           - '10.0.17763.2183'
-          - '1903'
-          - '1803'

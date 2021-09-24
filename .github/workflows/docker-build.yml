@@ -7,13 +7,11 @@ jobs:
       fail-fast: false
       matrix:
         pgis:
-          - '10-2.5.3'
+          - '12-3.1.4'
         psql:
-          - '10.18-2'
+          - '12.8-2'
         win:
           - '10.0.17763.2183'
-          - '1903'
-          - '1803'
 
     steps:
       - uses: actions/checkout@v1
@@ -25,7 +23,7 @@ jobs:
         run: docker run -itd --name pgwin $IMAGE
 
       - name: Test (query)
-        run: docker exec pgwin psql -U postgres -c "CREATE EXTENSION postgis; SELECT ST_DIST(ST_GEOMFROMTEXT('POINT(0 0)'), ST_GEOMFROMTEXT('POINT(1 0)'));"
+        run: docker exec pgwin psql -U postgres -c "CREATE EXTENSION postgis; SELECT ST_DISTANCE(ST_GEOMFROMTEXT('POINT(0 0)'), ST_GEOMFROMTEXT('POINT(1 0)'));"
 
       - name: Login
         uses: docker/login-action@v1
