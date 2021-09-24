@@ -21,8 +21,9 @@ jobs:
 
       - name: Test
         run: |
-          docker run -itd --name pgwin opengisch/postgis-windows:pg${{matrix.psql}}-pgis${{matrix.pgis}}-win${{matrix.win}}
-          sleep 5
+          docker run -d --name pgwin opengisch/postgis-windows:pg${{matrix.psql}}-pgis${{matrix.pgis}}-win${{matrix.win}}
+          sleep 10
+          docker logs pgwin
           docker exec pgwin psql -U postgres -c "CREATE EXTENSION postgis; SELECT ST_DISTANCE(ST_GEOMFROMTEXT('POINT(0 0)'), ST_GEOMFROMTEXT('POINT(1 0)'));"
 
       - name: Login
