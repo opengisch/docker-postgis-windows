@@ -20,7 +20,7 @@ jobs:
         run: docker build --build-arg WIN_VER=${{matrix.win}} --build-arg EDB_VER=${{matrix.psql}} --build-arg PGIS_VER=${{matrix.pgis}} --tag opengisch/postgis-windows:pg${{matrix.psql}}-pgis${{matrix.pgis}}-win${{matrix.win}} .
 
       - name: Test (start)
-        run: docker run -itd --name pgwin $IMAGE
+        run: docker run -itd --name pgwin opengisch/postgis-windows:pg${{matrix.psql}}-pgis${{matrix.pgis}}-win${{matrix.win}}
 
       - name: Test (query)
         run: docker exec pgwin psql -U postgres -c "CREATE EXTENSION postgis; SELECT ST_DISTANCE(ST_GEOMFROMTEXT('POINT(0 0)'), ST_GEOMFROMTEXT('POINT(1 0)'));"
