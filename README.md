@@ -22,9 +22,10 @@ docker login
 docker push $IMAGE
 ```
 
-Run (in foreground, not persisted)
+Test
 ```powershell
-docker run -it -p 5432:5432 $IMAGE
+docker run -itd --rm --name pgwin $IMAGE
+docker exec pgwin psql -U postgres -c "CREATE EXTENSION postgis; SELECT ST_DIST(ST_GEOMFROMTEXT('POINT(0 0)'),ST_GEOMFROMTEXT('POINT(1 0)'));"
 ```
 
 ------
