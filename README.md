@@ -3,10 +3,9 @@
 Forked from https://github.com/stellirin/docker-postgres-windows to add Postgis
 
 Build
-
 ```powershell
-$PGIS = "12-3.1.4"  # available versions on  http://download.osgeo.org/postgis/windows/
-$PSQL = "12.8-2"  # available versions on  https://www.enterprisedb.com/download-postgresql-binaries
+$PGIS = "10-2.4.4"  # available versions on  http://download.osgeo.org/postgis/windows/
+$PSQL = "10.17-2"  # available versions on  https://www.enterprisedb.com/download-postgresql-binaries
 $WIN = "10.0.17763.2183"  # available version on https://hub.docker.com/_/microsoft-windows-servercore AND https://hub.docker.com/_/microsoft-windows-nanoserver
 $IMAGE = "opengisch/postgis-windows:pg${PSQL}-pgis${PGIS}-win${WIN}"
 docker build --build-arg WIN_VER=$WIN --build-arg EDB_VER=$PSQL --build-arg PGIS_VER=$PGIS --tag $IMAGE .
